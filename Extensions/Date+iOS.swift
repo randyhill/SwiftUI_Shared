@@ -252,4 +252,10 @@ extension Date {
 	func toInternetDateTime(locale: Locale = Locale(identifier: "en_US")) -> String {
 		return self.to(dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", locale: locale)
 	}
+    
+    func daysUntil(_ date: Date)-> Double {
+        let seconds = date.timeIntervalSince(self)
+        let hours = seconds/3600
+        return hours/24
+    }
 }

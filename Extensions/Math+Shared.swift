@@ -1,5 +1,5 @@
 //
-//  Int.swift
+//  Math+Shared.swift
 //  Ike
 //
 //  Created by Randy Hill on 11/26/20.
@@ -56,12 +56,19 @@ extension Int {
 }
 
 extension Double {
-	var formatted: String {
-		if self == Double.greatestFiniteMagnitude { return "Max_Double" }
-		let numberFormatter = NumberFormatter()
-		numberFormatter.numberStyle = .decimal
-		return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
-	}
+    var formatted: String {
+        if self == Double.greatestFiniteMagnitude { return "Max_Double" }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
+    }
+    
+    var currency: String {
+        if self == Double.greatestFiniteMagnitude { return "Max_Double" }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
+    }
 	
 	var truncated: Double {
 		return Double(Int(self))
@@ -70,6 +77,15 @@ extension Double {
 	var fraction: Double {
 		return self - truncated
 	}
+    
+    func formatToDecimalPlaces(min: Int = 2, max: Int = 4) -> String {
+        if self == Double.greatestFiniteMagnitude { return "Max_Double" }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.minimumFractionDigits = min
+        numberFormatter.maximumFractionDigits =  max
+        let cashString = numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
+        return cashString
+    }
 }
 
 extension Float {

@@ -16,6 +16,28 @@ extension String {
 		}
 		return nil
 	}
+    
+    var double: Double? {
+        if self.count == 0 {
+            return 0.0
+        }
+        guard let newDouble = Double(self) else {
+            Log.error("Could not convert: \(self) to double")
+            return nil
+        }
+        return newDouble
+    }
+    
+    static func toString(_ value: Double?, noValueString: String = "N/A") -> String {
+        guard let value = value else { return noValueString}
+        return value.formatToDecimalPlaces()
+    }
+    
+    static func toPercent(_ value: Double?, noValueString: String = "N/A") -> String {
+        guard let value = value else { return noValueString}
+        let percent = value * 100
+        return "\(percent.formatToDecimalPlaces(min: 0, max: 1))%"
+    }
 
 	func prepend(string: String, onlyIfMissing: Bool) -> String {
 		 let hasPrefix: Bool = self.hasPrefix(string)
@@ -46,5 +68,4 @@ extension String {
 		}
 		return condensed
 	}
-	
 }
