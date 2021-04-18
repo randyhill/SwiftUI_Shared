@@ -54,7 +54,6 @@ struct Checkbox: View {
 struct CheckboxView_Previews: PreviewProvider {
     static var previews: some View {
         Checkbox(isChecked: .constant(true), title: "Title") { (newValue) in
-            Log.console("New value: \(newValue)")
-        }
+         }
     }
 }

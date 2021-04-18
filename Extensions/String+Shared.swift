@@ -19,7 +19,7 @@ extension String {
     
     var double: Double? {
         if self.count == 0 {
-            return 0.0
+            return nil
         }
         guard let newDouble = Double(self) else {
             Log.error("Could not convert: \(self) to double")

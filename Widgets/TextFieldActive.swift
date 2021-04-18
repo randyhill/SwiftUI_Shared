@@ -24,11 +24,10 @@ struct TextFieldActive: View {
             TextField(placeholder, text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .introspectTextField { textField in
-
                     #if os(iOS)
                       textField.becomeFirstResponder()
                     #endif
-    //                textField.addDoneButton()
+                    textField.addDoneButton()
                 }
                 .modifier(TextFieldClearButton(text: $text))
         }
