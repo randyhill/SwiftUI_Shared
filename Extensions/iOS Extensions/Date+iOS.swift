@@ -258,4 +258,20 @@ extension Date {
         let hours = seconds/3600
         return hours/24
     }
+    
+//    func yearsUntil(_ date: Date)-> Int {
+//        let form = DateComponentsFormatter()
+//        form.maximumUnitCount = 2
+//        form.unitsStyle = .full
+//        form.allowedUnits = [.year, .month, .day]
+//        return form.days
+//        let s = form.string(from: self, to: date)
+//        return s ?? ""
+//    }
+    
+    func time() -> String? {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm:ss.SSS"
+        return dateFormatter.string(from: self).uppercased()
+    }
 }
