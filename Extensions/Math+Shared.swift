@@ -69,6 +69,11 @@ extension Double {
         numberFormatter.numberStyle = .currency
         return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
     }
+    
+    var equityPrice: String {
+        let cashString = formatToDecimalPlaces()
+        return "$" + cashString
+    }
 	
 	var truncated: Double {
 		return Double(Int(self))
@@ -83,8 +88,8 @@ extension Double {
         let numberFormatter = NumberFormatter()
         numberFormatter.minimumFractionDigits = min
         numberFormatter.maximumFractionDigits =  max
-        let cashString = numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
-        return cashString
+        let numberString = numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
+        return numberString
     }
 }
 

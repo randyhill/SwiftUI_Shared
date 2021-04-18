@@ -33,10 +33,10 @@ extension String {
         return value.formatToDecimalPlaces()
     }
     
-    static func toPercent(_ value: Double?, noValueString: String = "N/A") -> String {
+    static func toPercent(_ value: Double?, maxPlaces: Int = 1, noValueString: String = "N/A") -> String {
         guard let value = value else { return noValueString}
         let percent = value * 100
-        return "\(percent.formatToDecimalPlaces(min: 0, max: 1))%"
+        return "\(percent.formatToDecimalPlaces(min: 0, max: maxPlaces))%"
     }
 
 	func prepend(string: String, onlyIfMissing: Bool) -> String {

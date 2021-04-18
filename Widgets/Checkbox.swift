@@ -11,6 +11,7 @@ let checkBoxDimension: CGFloat = 24.0
 
 struct Checkbox: View {
     @Binding var isChecked: Bool
+    var title: String
     var isChanged: ((Bool)->Void)
     
     // Apple says 44 by 44 is the minimum comfortable tap area, but we don't have that much space
@@ -28,6 +29,7 @@ struct Checkbox: View {
                     .frame(width: imageSize, height: imageSize, alignment: .center)
             })
             .frame(width: buttonSize.width, height: buttonSize.height, alignment: .center)
+            .buttonStyle(BorderlessButtonStyle())
         } else {
             Button(action: {
                 isChecked = true
@@ -38,13 +40,20 @@ struct Checkbox: View {
                     .frame(width: imageSize, height: imageSize, alignment: .center)
              })
             .frame(width: buttonSize.width, height: buttonSize.height, alignment: .center)
-       }
+            .buttonStyle(BorderlessButtonStyle())
+        }
+        Text(title)
+            .onTapGesture {
+                isChecked = !isChecked
+                isChanged(isChecked)
+            }
+
     }
 }
 
 struct CheckboxView_Previews: PreviewProvider {
     static var previews: some View {
-        Checkbox(isChecked: .constant(true)) { (newValue) in
+        Checkbox(isChecked: .constant(true), title: "Title") { (newValue) in
             Log.console("New value: \(newValue)")
         }
     }
