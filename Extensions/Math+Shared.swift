@@ -63,15 +63,15 @@ extension Double {
         return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
     }
     
-    var currency: String {
-        if self == Double.greatestFiniteMagnitude { return "Max_Double" }
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
-    }
+//    var currency: String {
+//        if self == Double.greatestFiniteMagnitude { return "Max_Double" }
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.numberStyle = .currency
+//        return numberFormatter.string(from: NSNumber(value:self)) ?? "\(self)"
+//    }
     
-    var equityPrice: String {
-        let cashString = formatToDecimalPlaces()
+    var currency: String {
+        let cashString = formatToDecimalPlaces(max:2)
         return "$" + cashString
     }
 	
