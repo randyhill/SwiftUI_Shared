@@ -253,10 +253,12 @@ extension Date {
 		return self.to(dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", locale: locale)
 	}
     
-    func daysUntil(_ date: Date)-> Double {
-        let seconds = date.timeIntervalSince(self)
-        let hours = seconds/3600
-        return hours/24
+    func daysUntil(_ untilDate: Date)-> Int {
+        let calendar = Calendar.current
+        let fromDate = calendar.startOfDay(for: self)
+        let toDate = calendar.startOfDay(for: untilDate)
+        let numberOfDays = calendar.dateComponents([.day], from: fromDate, to: toDate)
+        return numberOfDays.day ?? 0
     }
     
 //    func yearsUntil(_ date: Date)-> Int {
