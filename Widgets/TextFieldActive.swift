@@ -14,6 +14,7 @@ import Introspect
 struct TextFieldActive: View {
     var title: String?
     var placeholder: String
+    var disableAutocorrection: Bool = true
     @Binding var text: String
 
     var body: some View {
@@ -30,6 +31,7 @@ struct TextFieldActive: View {
                     textField.addDoneButton()
                 }
                 .modifier(TextFieldClearButton(text: $text))
+                .disableAutocorrection(disableAutocorrection)
         }
     }
 }
