@@ -74,7 +74,11 @@ extension Double {
         let cashString = formatToDecimalPlaces(max:2)
         return "$" + cashString
     }
-	
+    
+    var stockPrice: String {
+        return formatToDecimalPlaces(max:4)
+    }
+
 	var truncated: Double {
 		return Double(Int(self))
 	}
