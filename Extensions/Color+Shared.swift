@@ -36,6 +36,9 @@ extension Color {
     // Static vars are implicty lazy
     public static var navy: Color = { return Color(hex: "#001f3f")}()
     public static var coolBlue: Color = { return Color(hex: "#0074D9")}()
+    // #colorLiteral(red: 0.9999018312, green: 1, blue: 0.9998798966, alpha: 1)
+    public static var lightBlue: Color = { return Color(hex: "#D6EBFE")}() // BCDDFB
+    public static var coolSalmon: Color = { return Color(hex: "#FFE3E4")}() // #D6EBFE
     public static var aqua: Color = { return Color(hex: "#7FDBFF")}()
     public static var teal: Color = { return Color(hex: "#39CCCC")}()
     public static var olive: Color = { return Color(hex: "#3D9970")}()
