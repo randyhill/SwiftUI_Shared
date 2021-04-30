@@ -15,6 +15,7 @@ struct TextFieldActive: View {
     var title: String?
     var placeholder: String
     var disableAutocorrection: Bool = true
+    @State var activate: Bool = false
     @Binding var text: String
 
     var body: some View {
@@ -25,13 +26,22 @@ struct TextFieldActive: View {
             TextField(placeholder, text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .introspectTextField { textField in
-                    #if os(iOS)
-                      textField.becomeFirstResponder()
-                    #endif
+#if os(iOS)
+                    if activate {
+                        textField.becomeFirstResponder()
+                    }
+#endif
                     textField.addDoneButton()
-                }
-                .modifier(TextFieldClearButton(text: $text))
-                .disableAutocorrection(disableAutocorrection)
+            }
+//            .modifier(TextFieldClearButton(text: $text))
+            .disableAutocorrection(disableAutocorrection)
+//            Button(action: {
+//                text = ""
+//                activate = true
+//            }, label: {
+//                Image(systemName: "delete.left")
+//                    .foregroundColor(Color.opaqueSeparator)
+//            })
         }
     }
 }

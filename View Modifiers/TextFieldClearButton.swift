@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TextFieldClearButton: ViewModifier {
     @Binding var text: String
+    var actionCallback: (()->Void)? = nil
 
     func body(content: Content) -> some View {
         HStack {
@@ -18,6 +19,7 @@ struct TextFieldClearButton: ViewModifier {
                 Button(
                     action: {
                         self.text = ""
+                        actionCallback?()
                       },
                     label: {
                         Image(systemName: "delete.left")
