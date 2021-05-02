@@ -54,35 +54,41 @@ extension Date {
 	// Today: Time only
 	// Yesterday: Yesterday + Time
 	// Less than a week old: Day of Week + Time
-	// Over a week old: Date + Time
-    func toUniqueTimeDayOrDate(locale: Locale = Locale(identifier: "en_US")) -> String {
-		let minutesLeftInWeek = 7*24*60 - minutesToMidnight
-		var dateTitle = dayTitle
-		switch dateTitle {
-		case Date.todayTitle:
-			dateTitle = " at "
-		case Date.yesterdayTitle:
-			dateTitle = Date.yesterdayTitle + " at "
-		default:
-			if self < Date().add(minutes: -minutesLeftInWeek) {
-				// show date if more than 6 days old (don't want to display
-				dateTitle = self.toMonthDayYearNumeric(locale: locale) + " at "
-			} else {
-				// show day of week
-				dateTitle = self.toDayOfWeek(locale: locale) + " at "
-			}
-		}
-        return dateTitle + toTimeAMPM(locale: locale)
-    }
+	// Over a week old or week in future: Date + Time
+//    func toUniqueTimeDayOrDate(locale: Locale = Locale(identifier: "en_US"), withTime: Bool = false) -> String {
+//		var dateTitle = dayTitle
+//		switch dateTitle {
+//		case Date.todayTitle, Date.yesterdayTitle:
+//			break
+//		default:
+//            let minutesInWeek = 7*24*60 - minutesToMidnight
+//            let oneWeekAgo = Date().add(minutes: -minutesInWeek)
+//            let minutesLeftInWeek = 7*24*60 + minutesToMidnight
+//            let oneWeekAhead = Date().add(minutes: minutesLeftInWeek)
+//			if self > oneWeekAgo && self < oneWeekAhead {
+//                // Within a week of today, just show day of week
+//               dateTitle = self.toDayOfWeek(locale: locale)
+//            } else {
+//				// Juse show date
+//				dateTitle = self.toFullMonthDayYear(locale: locale)
+//			}
+//		}
+//        if withTime {
+//            return dateTitle + " at " + toTimeAMPM(locale: locale)
+//        } else {
+//            return dateTitle
+//        }
+//    }
     
     // Human readable dates
     // Yesterday, today, tomorrow, or day of week if in next week.
     // Otherwise month, day year
-    func toFullUniqueDate(locale: Locale = Locale(identifier: "en_US")) -> String {
-        let theDayTitle = dayTitle
+    func toFullUniqueDate(locale: Locale = Locale(identifier: "en_US"), withTime: Bool = false) -> String {
+        var theDayTitle = dayTitle
         switch theDayTitle {
         case Date.todayTitle, Date.yesterdayTitle, Date.tomorrowTitle :
-            return theDayTitle
+            // Yesterday, Today, or Tomorrow
+            break
         default:
             let minutesLeftInWeek = 7*24*60 + minutesToMidnight
             let minutesToPreviousWeek = 7*24*60 - minutesToMidnight
@@ -92,13 +98,23 @@ extension Date {
             let oneWeekFromNow = now.add(minutes: +minutesLeftInWeek)
 
             if self > oneWeekAgo && self < oneWeekFromNow {
-                return dayOfWeek
+                // Monday, Tuesday, etc
+                theDayTitle = dayOfWeek
+            } else if now.year == self.year {
+                // December 20
+                theDayTitle =  dayOfWeek + ", " + self.toFullMonthDay(locale: locale)
+            } else {
+                // December 20, 2028
+                theDayTitle = dayOfWeek + ", " + self.toFullMonthDayYear(locale: locale)
             }
-            if now.year == self.year {
-                return dayOfWeek + ", " + self.toFullMonthDay(locale: locale)
-            }
-            return dayOfWeek + ", " + self.toFullMonthDayYear(locale: locale)
         }
+        if withTime {
+            // December 20, 2028 at 7:15 PM
+            return theDayTitle + " at " + toTimeAMPM(locale: locale)
+        } else {
+            return theDayTitle
+        }
+
      }
     
 	func toMonthDayYearNumeric(locale: Locale = Locale(identifier: "en_US")) -> String {

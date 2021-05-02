@@ -32,16 +32,16 @@ struct TextFieldActive: View {
                     }
 #endif
                     textField.addDoneButton()
-            }
+                }
 //            .modifier(TextFieldClearButton(text: $text))
-            .disableAutocorrection(disableAutocorrection)
-//            Button(action: {
-//                text = ""
-//                activate = true
-//            }, label: {
-//                Image(systemName: "delete.left")
-//                    .foregroundColor(Color.opaqueSeparator)
-//            })
+                .disableAutocorrection(disableAutocorrection)
+            Button(action: {
+                text = ""
+                activate = true
+            }, label: {
+                Image(systemName: "delete.left")
+                    .foregroundColor(Color.opaqueSeparator)
+            })
         }
     }
 }
