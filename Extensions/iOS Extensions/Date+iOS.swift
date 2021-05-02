@@ -48,41 +48,10 @@ extension Date {
         let yearString = self.toYear()
         return Int(yearString) ?? 0
     }
-	
-	// Convert string to easiest for human to understand time/date.
-	//
-	// Today: Time only
-	// Yesterday: Yesterday + Time
-	// Less than a week old: Day of Week + Time
-	// Over a week old or week in future: Date + Time
-//    func toUniqueTimeDayOrDate(locale: Locale = Locale(identifier: "en_US"), withTime: Bool = false) -> String {
-//		var dateTitle = dayTitle
-//		switch dateTitle {
-//		case Date.todayTitle, Date.yesterdayTitle:
-//			break
-//		default:
-//            let minutesInWeek = 7*24*60 - minutesToMidnight
-//            let oneWeekAgo = Date().add(minutes: -minutesInWeek)
-//            let minutesLeftInWeek = 7*24*60 + minutesToMidnight
-//            let oneWeekAhead = Date().add(minutes: minutesLeftInWeek)
-//			if self > oneWeekAgo && self < oneWeekAhead {
-//                // Within a week of today, just show day of week
-//               dateTitle = self.toDayOfWeek(locale: locale)
-//            } else {
-//				// Juse show date
-//				dateTitle = self.toFullMonthDayYear(locale: locale)
-//			}
-//		}
-//        if withTime {
-//            return dateTitle + " at " + toTimeAMPM(locale: locale)
-//        } else {
-//            return dateTitle
-//        }
-//    }
     
     // Human readable dates
-    // Yesterday, today, tomorrow, or day of week if in next week.
-    // Otherwise month, day year
+    // Yesterday, today, tomorrow, or day of week if in last week or next week.
+    // Otherwise month, day if same year, append year if not. And append "at X:XX pm" if withTime true
     func toFullUniqueDate(locale: Locale = Locale(identifier: "en_US"), withTime: Bool = false) -> String {
         var theDayTitle = dayTitle
         switch theDayTitle {
