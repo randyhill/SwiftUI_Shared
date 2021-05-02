@@ -7,9 +7,6 @@
 //
 
 import SwiftUI
-#if os(iOS)
-import Introspect
-#endif
 
 struct TextFieldActive: View {
     var title: String?
@@ -24,15 +21,8 @@ struct TextFieldActive: View {
                 Text(title)
             }
             TextField(placeholder, text: $text)
+                .addKeyboardDoneButton()
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .introspectTextField { textField in
-#if os(iOS)
-                    if activate {
-                        textField.becomeFirstResponder()
-                    }
-                    textField.addDoneButton()
-#endif
-                }
                 .disableAutocorrection(disableAutocorrection)
             Button(action: {
                 text = ""

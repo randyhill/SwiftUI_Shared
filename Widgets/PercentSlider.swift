@@ -16,10 +16,11 @@ struct PercentSlider: View {
     var body: some View {
         HStack {
             TextField("%", text: $percentString)
+                .addKeyboardDoneButton()
                 .keyboardType(.decimalPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
-                .onChange(of: percentString, perform: { value in
+                 .onChange(of: percentString, perform: { value in
                     if let percent = Int(value), percent >= 0, percent <= 100 {
                         self.percentage = Double(percent)/100
                     }

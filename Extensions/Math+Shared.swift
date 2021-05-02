@@ -82,6 +82,10 @@ extension Double {
 	var truncated: Double {
 		return Double(Int(self))
 	}
+    
+    var percent: Double {
+        return Double(Int((self)*100))
+    }
 	
 	var fraction: Double {
 		return self - truncated
