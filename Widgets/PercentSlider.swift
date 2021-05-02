@@ -1,5 +1,5 @@
 //
-//  ValueSlider.swift
+//  PercentSlider.swift
 //  Arbitrage
 //
 //  Created by Randy Hill on 5/1/21.
@@ -10,7 +10,6 @@ import SwiftUI
 struct PercentSlider: View {
     @Binding var percentage: Double
     @State var percentString: String = ""
-    var range: ClosedRange<Double>
     var onChange: ((Int)->Void)?
 
     var body: some View {
@@ -21,27 +20,27 @@ struct PercentSlider: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
                  .onChange(of: percentString, perform: { value in
-                    if let percent = Int(value), percent >= 0, percent <= 100 {
-                        self.percentage = Double(percent)/100
+                    if let percent = Double(value), percent >= 0, percent <= 1 {
+                        self.percentage = percent
                     }
                 })
                 .frame(width: 50, alignment: .center)
                 Text("%")
 
-            Slider(value: $percentage, in: range)
+            Slider(value: $percentage, in: 0...1.0)
                 .onChange(of: percentage, perform: { value in
-                    let intValue = Int(value*100)
+                    let intValue = value.percent
                     self.percentString = intValue.formatted
                })
         }
         .onAppear() {
-            percentString = Int(percentage*100).formatted
+            percentString = percentage.percent.formatted
         }
     }
 }
 
 struct ValueSlider_Previews: PreviewProvider {
     static var previews: some View {
-        PercentSlider(percentage: .constant(0.5), range: 0...1.0, onChange: nil)
+        PercentSlider(percentage: .constant(0.5), onChange: nil)
     }
 }

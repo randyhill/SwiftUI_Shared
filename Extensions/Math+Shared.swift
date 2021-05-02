@@ -83,8 +83,23 @@ extension Double {
 		return Double(Int(self))
 	}
     
-    var percent: Double {
-        return Double(Int((self)*100))
+    var rounded: Int {
+        var value = self
+        let remainder = value.truncatingRemainder(dividingBy: 1)
+        if remainder >= 0.5 {
+            value += 1
+        }
+        return Int(value)
+    }
+    
+//    var percent: Double {
+//        return Double(Int((self)*100))
+//    }
+    
+    // Convert 0..<1.0 to 0 to 100 integer
+    var percent: Int {
+        Log.assert(self >= 0 && self <= 1.0)
+        return Int((self*100).rounded)
     }
 	
 	var fraction: Double {
