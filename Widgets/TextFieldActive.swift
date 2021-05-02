@@ -30,10 +30,9 @@ struct TextFieldActive: View {
                     if activate {
                         textField.becomeFirstResponder()
                     }
-#endif
                     textField.addDoneButton()
+#endif
                 }
-//            .modifier(TextFieldClearButton(text: $text))
                 .disableAutocorrection(disableAutocorrection)
             Button(action: {
                 text = ""
