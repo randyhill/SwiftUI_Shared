@@ -20,8 +20,9 @@ struct PercentSlider: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
                  .onChange(of: percentString, perform: { value in
-                    if let percent = Double(value), percent >= 0, percent <= 1 {
-                        self.percentage = percent
+                    let percent = Double(value) ?? 0
+                    if percent >= 0, percent <= 100 {
+                        self.percentage = percent/100
                     }
                 })
                 .frame(width: 50, alignment: .center)

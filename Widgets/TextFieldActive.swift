@@ -21,7 +21,7 @@ struct TextFieldActive: View {
                 Text(title)
             }
             TextField(placeholder, text: $text)
-                .addKeyboardDoneButton()
+                .addKeyboardDoneButton(activate: activate)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(disableAutocorrection)
             Button(action: {
